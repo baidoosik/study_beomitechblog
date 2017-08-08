@@ -18,5 +18,5 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^/',include(youtube.urls,namespace='youtube')),
+    url(r'^',include('youtube.urls',namespace='youtube')),
 ]
