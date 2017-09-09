@@ -34,7 +34,10 @@ def get_content(link):
     print(soup.select('#head > h2 > a')[0].text) # 첫 h1 태그를 봅시다.
 
 if __name__=='__main__':
-    start_time = time.time()
-    pool =Pool(processes=4)
-    pool.map(get_content,get_links())
-    print("--- %s seconds ---" % (time.time() - start_time))
+    arg =[1,2,4,8,16,32,64]
+    for i in arg:
+        print(i)
+        start_time = time.time()
+        pool =Pool(processes=i)
+        pool.map(get_content,get_links())
+        print("--- %s seconds ---" % (time.time() - start_time))

@@ -1,0 +1,80 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+    </head>
+    <body>
+        <div id="navbar">
+
+        </div>
+        <div id="wrapper">
+
+            <a id="btn-naver-1" href="http://m.naver.com" target="_blank">Naver Button 1</a>
+            <a id="btn-naver-2" href="http://m.naver.com" target="_blank">Naver Button 2</a>
+            <ul id="my-list">
+                <li>list1</li>
+                <li>list2</li>
+                <li>list3</li>
+            </ul>
+            <form id="query-form">
+                <input type="text" name="query" /> <input type="submit" value="조회" />
+            </form>
+
+            <button id="lotto-btn">로또 번호를 점지해주세요.</button>
+            <button id="remove-at-first">처음을 삭제</button>
+            <button id="remove-at-last">마지막을 삭제</button>
+
+
+            <div id="lotto-list">
+
+            </div>
+        </div>
+        <div class="footer">
+
+        </div>
+    </body>
+    <script id="post-template" type="text/x-template">
+        <div class="post">
+            당첨번호는 <%= numbers %>이며, 보너스 번호는 <%= bonus %>입니다.
+        </div>
+    </script>
+
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+    <script>
+    // 이후에 필요한 자바스크립트 코드 구현
+    $(function() {
+    console.log("웹페이지 로딩 완료");
+    });
+    $('#btn-naver-1').click(function () {
+        console.log('click btn naver-1');
+    });
+    $('#btn-naver-2').click(function(e){
+        e.preventDefault();
+        console.log('clicked btn naver-2');
+    });
+    $('#my-list li').click(function(){
+        var content =$(this).html();
+        console.log('click list'+content);
+    });
+    $('#query-form').submit(function (e) {
+        e.preventDefault();
+        console.log('form submit');
+    });
+
+    $(function () {
+        var raw_template = $('#post-template').html()
+        var tpl = _.template(raw_template)
+
+        $('#lotto-btn').click(function(){
+            var sample = _.sample(_.range(1,46),6);
+
+            var renderd =tpl({
+                numbers: sample.slice(0,5).sort(function(x,y) {return x-y;}),
+                bonus:sample[5]
+            });
+            console.log(renderd);
+            $(renderd).appendTo('#lotto-list');
+        });
+    });
+    </script>
+</html>
